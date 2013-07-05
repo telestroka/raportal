@@ -1,0 +1,15 @@
+/*ms site*/
+html, body, #container { min-height: 100%; width: 100%; height: 100%;}
+html>body, html>body #container { height: auto;}
+img { behavior:url('images/pngbehavior.htc'); }
+
+html, body, th, td, input, select, textarea, .text 
+{
+	color: #959595;
+	font: 10pt Arial, sans-serif; 
+}
+h1, h2, h3, h4, h5, h6 { font-weight: bold; }
+li { list-style-type: none; }
+label { display: block; margin-top: 10px; }
+dl { display: block; }
+dt { float: left; }

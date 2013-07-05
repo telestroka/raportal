@@ -1,56 +1,69 @@
-#body { background: #ccc; text-align: center; }
-	.container 
-	{   
-		width: 1025px; height: 100%;
-		border: 0;
-		margin: auto;
-		background: #333F55 url('../images/design/bg.jpg') no-repeat;
+@import url("/css/reset.css");
+@import url("/css/classes.css");
+
+/*img { behavior:url('images/pngbehavior.htc'); })*/
+
+html, body,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+input, button, select, textarea,
+.text { font-size: 13px; font-family: Arial, sans-serif; color: #464646; }
+
+body { margin: 0; padding: 0; }
+
+h1 { font-size: 36px; font-weight: normal; color: #598527; margin-bottom: 10px; }
+h2 { font-size: 15px; font-weight: bold; }
+h3 { font-size: large; font-weight: normal; }
+
+p { margin: 10px 0; }
+
+a:link { color: #464646; }
+a:visited { color: #464646; }
+/*a:hover { color: #00e; }*/
+
+input, button { font-size: 12px; color: #333333; }
+
+#container
+{
+	width: 980px;
+	margin: auto; padding-top: 220px;
+	background: transparent url('../i/design/outlook.gif') top right no-repeat;
+}
+	#sidebar
+	{
+		float: left;
+		width: 330px;
+		padding: 80px 70px 0 0;
 	}
-		.content-area 
+	#content
+	{
+		float: right;
+		width: 580px;
+	}
+		h2.green
 		{
-			height: 100%;
-			vertical-align: top;
+			display: block;
+			margin: 20px 0 5px 0; padding-left: 5px;
+			background-color: #ACD373;
+			line-height: 40px; text-transform: uppercase;
+			color: #fff;
 		}
-			.content
-			{
-				height: 700px;
-				border: 0;
-				vertical-align: top;
-			}
-				h1
-				{
-					margin-bottom: 10px;
-					font: 13.5pt normal Trebuchet MS, sans-serif;
-				}
-				h2
-				{
-					font-size: 13.5pt;
-					font-weight: normal;
-				}
-				p { margin-bottom: 20px; }
-				a:link, a:hover, a:visited { color: #0093DD; }
-				.orange { color: #F26522; }
-				.blue { color: #0093DD; }
-				.top { height: 400px; border: 0; }
-				.left-column
-				{
-					width: 50%;
-					padding-left: 125px;
-					padding-top: 400px;
-					vertical-align: top;
-				}
-				.right-column
-				{
-					padding: 0 70px 0 100px;
-					vertical-align: top;
-				}
-					.logo { border: 0; margin-left: 35px; }
-					#news_next { display: none; }
-					.textlink { text-decoration: none; color: #959595 !important; }
-		.footer-area
+		h2.blue
 		{
-			height: 84px;
-			background: url('../images/design/footer_bg.gif') repeat-x;
+			display: block;
+			margin: 20px 0 5px 0; padding-left: 5px;
+			background-color: #6DCFF6;
+			line-height: 40px; text-transform: uppercase;
+			color: #fff;
 		}
-#admin #content { padding: 20px; }
-	
+		.nav a
+		{
+			line-height: 130px;
+			font-size: 21px;
+			color: #3F6618;
+		}

@@ -1,0 +1,48 @@
+<?php
+/***********************************************
+-=Ms Site=-
+
+Автор: Миропольский Михаил <ms@ensk.ru>
+Описание: Класс основного движка
+***********************************************/
+ini_set('magic_quotes_gpc', 0);
+ini_set('display_errors', 1);
+
+class Site
+{
+	var $CONFIG, $URL, $PATH, $TITLE, $EMAIL_OWNER, $EMAIL_ADMIN;
+	
+	function Site()
+	{
+		$this->URL = 'http://' . $_SERVER['HTTP_HOST'];
+		$this->PATH = $_SERVER["DOCUMENT_ROOT"];
+	
+		$this->CONFIG = parse_ini_file($this->PATH . '/site.ini', true);
+		
+		$this->TITLE = $this->CONFIG['general']['title'];
+		$this->EMAIL_OWNER = $this->CONFIG['general']['owner'];
+		$this->EMAIL_ADMIN = $this->CONFIG['general']['admin'];	
+	
+		//session
+		if ( !isset($_SESSION) ) session_start();	
+		if ( !isset($_SESSION['auth']) ) $_SESSION['auth'] = array ('id' => 0, 'title' => 'Гость', 'access' => '0');
+		
+		return TRUE;
+	}
+	
+	function SiteGoTo($url)
+	{
+		header('Location: ' . $url);
+		exit();
+		
+		return TRUE;
+	}
+	
+	function SiteCheckAccess($user)
+	{
+		if ($_SESSION['auth']['access'] < 1) return FALSE;
+		if ($_SESSION['auth']['access'] < 2 && $user != $_SESSION['auth']['id']) return FALSE;
+		
+		return TRUE;
+	}
+}

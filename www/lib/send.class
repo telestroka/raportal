@@ -1,0 +1,47 @@
+<?php
+/***********************************************
+-=Ms Site=-
+
+Автор: Миропольский Михаил <ms@ensk.ru>
+Описание: Класс подписки
+***********************************************/
+
+class Send
+{
+	//определение понедельника по дате
+	function SendGetMonday($date)
+	{
+		$date = strtotime(date('Y-m-d', $date)); //обнуляем время		
+		$weekday = date('w', $date);
+		
+		//смещение
+		switch ($weekday)
+		{
+			case 0: $back = 6 * 24 * 60 * 60; break;
+			default: $back = ($weekday - 1) * 24 * 60 * 60;
+		}	
+		$monday = $date - $back;	
+		
+		return $monday;
+	}
+	
+	//по выпуску определять диапазон дат
+	function SendGetPeriod($issue, $date)
+	{
+		$start_monday = self::SendGetMonday($date);		
+		$start = ($issue - 1) * 7 * 24 * 60 * 60 + $start_monday;		
+		$end = $start + 7 * 24 * 60 * 60 - 1;
+		
+		return array('start' => $start, 'end' => $end);
+	}
+	
+	//по дате определять выпуск
+	function SendGetIssue($date, $start)
+	{		
+		$this_monday = self::SendGetMonday($date);
+		$start_monday = self::SendGetMonday($start);	
+		$issue = round(($this_monday - $start_monday) / (7 * 24 * 60 * 60));
+	
+		return $issue;
+	}
+}

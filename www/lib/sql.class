@@ -1,0 +1,83 @@
+<?php
+/***********************************************
+-=Ms Site=-
+
+Автор: Миропольский Михаил <ms@ensk.ru>
+Описание: Класс базы данных
+***********************************************/
+
+class Sql
+{
+	var $SqlConnectId;
+	
+	function Sql()
+	{		
+		$config = parse_ini_file ($_SERVER["DOCUMENT_ROOT"] . '/site.ini', true);
+		$this->SqlConnectId = mysql_connect($config['database']['host'], $config['database']['login'], $config['database']['password']);
+		if (!$this->SqlConnectId) exit (mysql_error());
+		
+		mysql_query("SET character_set_results = 'utf8', character_set_client = 'utf8', character_set_connection = 'utf8', character_set_database = 'utf8', character_set_server = 'utf8'");
+		mysql_query("SET NAMES 'utf8'");
+				
+		if (!mysql_select_db($config['database']['name']))
+		{
+			self::SqlExecute('CREATE DATABASE IF NOT EXISTS ' . $config['database']['name']);
+			mysql_select_db($config['database']['name']);
+			//exit (mysql_error());
+		}
+	}
+	
+	function SqlExecute($sql_query)
+	{
+		$sql_res = mysql_query($sql_query, $this->SqlConnectId);
+		$sql_error = mysql_error();
+		if ($sql_error) exit ($sql_error);
+		
+		return $sql_res;
+	}
+	
+	function SqlPrepare($value)
+	{
+		$value = trim($value);
+		if (!get_magic_quotes_gpc()) $value = mysql_real_escape_string($value);
+		
+		return $value;
+	}
+	
+	function SqlGetRows($sql_query)
+	{
+		$result = false;
+		$sql_res = self::SqlExecute($sql_query);
+        while ($row = mysql_fetch_assoc($sql_res)) $result[$row['id']] = $row;
+		
+		return $result;
+	}
+	
+	function SqlGetRow($sql_query)
+	{
+		$result = false;
+		$sql_res = self::SqlExecute($sql_query);
+		$result = mysql_fetch_assoc($sql_res);
+		
+		return $result;
+	}
+	
+	function SqlCountRows($sql_query)
+	{
+		$result = false;
+		$sql_res = self::SqlExecute($sql_query);
+		$result = mysql_fetch_row($sql_res);
+		
+		return $result[0];
+	}
+	
+	function SqlLastId()
+	{
+		return mysql_insert_id($this->SqlConnectId);
+	}
+	
+	function SqlAffected()
+	{
+		return mysql_affected_rows($this->SqlConnectId);
+	}
+}

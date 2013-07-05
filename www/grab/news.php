@@ -1,4 +1,5 @@
 <?php
+	exit;
 	require_once('include/init.php');
 	
 	$last = sql_get_row('SELECT date FROM `ngs_news` order by date desc limit 0,1;');

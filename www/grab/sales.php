@@ -12,28 +12,13 @@
 		if (!$source_content) continue;
 		$sales = new simple_html_dom();
 		$sales->load($source_content);
-		$sales = $sales->find('#sale-list', 0)->innertext;
-		$sales = explode('<br /><br /><div class="lightgray-line"><spacer/></div><br />',$sales);
-		if ( !is_array($sales) ) exit;
-		if ( isset($sales[10]) ) unset($sales[10]);
-		
-		
-		foreach ($sales as $adv)
+	
+		foreach ($sales->find('.notice') as $sale)
 		{
-			$sale = new simple_html_dom();
-			$sale->load($adv);
-			
-			$pieces = explode('<br />',$adv);
-			$date = trim($pieces[0]);
-			$date = strftime("%Y-%m-%d", strtotime($date));
-			if ($date <= $last) continue; //нужны только новые
-			
-			$title = $sale->find('a', 0)->plaintext;
-			$url = 'http://business.ngs.ru' . $sale->find('a', 0)->href;
-			
-			$price = strip_tags($pieces[2]);
-			$price = str_replace('Цена: ','',$price);
-			
+			$title = $sale->find('h2', 0)->plaintext;
+			$url = 'http://business.ngs.ru' . $sale->find('h2 a', 0)->href;
+			$date = $sale->find('.date', 0)->plaintext;
+			$date = date('Y-m-d',strtotime(trim($date)));
 			sql_execute('INSERT IGNORE INTO ngs_sales (title,url,price,date) values("' . sql_prepare($title) . '","' . sql_prepare($url) . '","' . sql_prepare($price) . '","' . sql_prepare($date) . '");');
 		}
 	}

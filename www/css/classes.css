@@ -6,7 +6,7 @@
 .floatright { float: right; }
 .clear { clear: both; }
 .pointer { cursor: pointer; }
-.opacity { opacity: 0.5; filter: alpha(opacity=50); }
+.opacity { opacity: 0.5; /*filter: alpha(opacity=50);*/ }
 
 .small { font-size: smaller; }
 .large { font-size: larger; }
@@ -27,7 +27,7 @@
 .w5 { margin-right: 5px; }
 .w10 { margin-right: 10px; }
 
-.alert { color: #f00; font-size: smaller; }
+label.error, span.error, div.error { color: #f00; font-size: smaller; }
 .comment { color: #ccc; font-size: smaller; }
 
 .black { color: #000; }
@@ -36,5 +36,48 @@
 .white { color: #fff; }
 
 .border { border: 1px solid black; }
+.nomargin { margin: 0; }
+.nopadding { padding: 0; }
 
 .decimal li { list-style-type: decimal; margin-left: 20px; }
+.disc li { list-style-type: disc; margin-left: 20px; }
+
+.autowidth { width: auto; }
+
+.form { /*width: 400px;*/ }
+	.form label { display: block; margin-top: 10px; margin-bottom: 5px; }
+	.form input, .form textarea { width: 400px; }
+	.form .submit { display: block; margin-top: 10px; }
+	.form .check { width: auto; }
+	.form .radio { width: auto; }
+	.form .autowidth { width: auto; }
+
+.pager { margin: 10px 0; }
+	.pager li { display: inline; }
+
+.sub-block
+{
+	margin-left: 20px;
+}	
+.image-block
+{
+	display: block; float: left;
+	margin: 0 10px 10px 0;
+	border: 1px solid silver;
+}
+#loader
+{
+	position: absolute;	top: 0;	z-index: 100;
+	opacity: 0.5; filter: alpha(opacity=50);
+	width: 100%; height: 30px; 
+	background-color: #ccc; border-bottom: 1px solid #000;
+	line-height: 30px; text-align: center;
+	color: #000; font-weight: bold;
+}
+.upload
+{
+	border: 1px solid #000;
+	background-color: #fff;
+	width: 390px;
+	padding: 5px;
+}

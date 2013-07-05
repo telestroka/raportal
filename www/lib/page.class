@@ -1,0 +1,21 @@
+<?php
+/***********************************************
+-=Ms Site=-
+
+Автор: Миропольский Михаил <ms@ensk.ru>
+Описание: Класс страницы
+***********************************************/
+
+class Page
+{
+	var $NAME, $TITLE, $URL;
+	
+	function Page($name = 'index', $title = '')
+	{
+		$this->NAME = $name;
+		$this->TITLE = $title;
+		$this->URL = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+		
+		return TRUE;
+	}
+}

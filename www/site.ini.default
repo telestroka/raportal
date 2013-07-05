@@ -1,0 +1,14 @@
+[general]
+title = Идеи и решения для бизнеса — на email
+owner = bvpensk@yandex.ru
+admin = ms@ensk.ru
+
+[database]
+host = ""
+login = ""
+password = ""
+name = ""
+
+[menu]
+
+[bmenu]

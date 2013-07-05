@@ -1,0 +1,25 @@
+<?php
+/***********************************************
+-=Ms Site=-
+
+Автор: Миропольский Михаил <ms@ensk.ru>
+Описание: Класс модуля
+***********************************************/
+
+class Module
+{
+	var $NAME, $TITLE, $URL, $DATA_PATH, $DATA_URL, $AJAX_PATH, $AJAX_URL;
+	
+	function Module($name, $title)
+	{
+		$this->NAME = $name;
+		$this->TITLE = $title;
+		$this->URL = 'http://' . $_SERVER['HTTP_HOST'] . '/' . $this->NAME;
+		$this->DATA_PATH = $_SERVER["DOCUMENT_ROOT"] . '/' . $this->NAME . '/data';
+		$this->DATA_URL = $this->URL . '/data';
+		$this->AJAX_PATH = 'http://' . $_SERVER['HTTP_HOST'] . '/' . $this->NAME . '/ajax';
+		$this->AJAX_URL = $this->URL . '/ajax';
+		
+		return TRUE;
+	}
+}

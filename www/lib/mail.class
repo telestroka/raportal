@@ -1,0 +1,19 @@
+<?php
+/***********************************************
+-=Ms Site=-
+
+Автор: Миропольский Михаил <ms@ensk.ru>
+Описание: Класс почты
+***********************************************/
+
+class Mail
+{
+	function Mailer($email, $title, $message, $from='')
+	{
+		$title = iconv("UTF-8", "koi8-r", $title);
+		$message = iconv("UTF-8", "koi8-r", $message);
+		if ($from =='') $from = 'mailer@' . $_SERVER['SERVER_NAME'];
+		
+		return mail($email, $title, $message, 'From: ' . $from . '\r\nX-Mailer: PHP/' . phpversion());
+	}
+}

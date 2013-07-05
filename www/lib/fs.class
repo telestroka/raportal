@@ -1,0 +1,51 @@
+<?php
+/***********************************************
+-=Ms Site=-
+
+Автор: Миропольский Михаил <ms@ensk.ru>
+Описание: Класс работы с файловой системой
+***********************************************/
+
+class Fs
+{	
+	function FsReadDir($dir)
+	{
+		$files = array();
+		$dh  = @opendir($dir);
+		if (!$dh) exit('can\'t read dir');
+
+		while ( false !== ( $filename = readdir($dh) ) ) 
+			if ($filename != '.' && $filename != '..') $files[] = $filename;
+
+		sort($files);
+		
+		return $files;
+	}	
+
+	function FsWrite($path, $data, $mode)
+	{
+		$handle = fopen($path, $mode);
+		if (!$handle) exit('can\'t create file');
+
+		$result = fwrite($handle, $data);
+		if (!$result) exit('can\'t write file');
+
+		fclose($handle);
+
+		return $result;
+	}	
+	
+	function FsMove($from, $to)
+	{
+		$content = file_get_contents($from);
+		unlink($from);
+		
+		return self::FsWrite($to, $content, 'w');
+	}
+	
+	
+	function FsPost($url, $postfields)
+	{
+		return file_get_contents($url, false, stream_context_create(array('http' =>array('method'  => 'POST','header'  => 'Content-type: application/x-www-form-urlencoded','content' => http_build_query($postfields)))));
+	}
+}

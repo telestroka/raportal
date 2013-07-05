@@ -1,0 +1,43 @@
+<?php
+/***********************************************
+-=Ms Site=-
+
+Автор: Миропольский Михаил <ms@ensk.ru>
+Описание: Класс пейджера
+***********************************************/
+
+class Pager
+{
+	var $PAGER = array();
+	
+	function Pager($total, $per_page)
+	{
+		$this->PAGER['current'] = ( isset($_GET['page']) && preg_match('/^\d+$/',$_GET['page']) ) ? $_GET['page'] : 1;
+		$this->PAGER['total'] = ceil($total / $per_page);
+		$this->PAGER['start'] = $this->PAGER['current'] * $per_page - $per_page + 1;
+		$this->PAGER['end'] = $this->PAGER['current'] * $per_page;
+		$this->PAGER['show'] = $per_page;
+	}
+	
+	function PagerShow()
+	{
+		if ($this->PAGER['total'] > 1)
+		{
+			$request = $_GET;			 
+			
+			echo '<ul class="pager">';
+			for ($i = 1; $i <= $this->PAGER['total']; $i++ ) 
+			{
+				if ($i == $this->PAGER['current'])
+					echo '<li>' . $i . '</li> ';
+				else
+				{		
+					$request['page'] = $i;	
+					$url = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'] . '?' . http_build_query($request);
+					echo '<li><a href="' . $url . '">' . $i . '</a></li> ';
+				}
+			}
+			echo '</ul>';
+		}
+	}
+}

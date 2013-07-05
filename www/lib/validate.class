@@ -1,0 +1,61 @@
+<?php
+/***********************************************
+-=Ms Site=-
+
+Автор: Миропольский Михаил <ms@ensk.ru>
+Описание: Класс валидаций
+***********************************************/
+
+class Validate
+{	
+	function ValidateField($value, $type)
+	{
+		switch ($type)
+		{
+			case 'price':
+				return self::ValidateNumber($value);
+				break;
+			case 'url':
+				return self::ValidateUrl($value);
+				break;
+			case 'email':
+				return self::ValidateEmail($value);
+				break;
+			case 'date':
+				return self::ValidateDate($value);
+				break;
+			default: ;
+		}
+		return FALSE;
+	}
+	
+	function ValidateEmpty($value)
+	{		
+		if ($value == '') return 'Это поле необходимо заполнить.';
+		return FALSE;
+	}
+	
+	function ValidateNumber($value)
+	{		
+		if (!is_numeric($value)) return 'Пожалуйста, введите число.';
+		return FALSE;
+	}
+	
+	function ValidateUrl($value)
+	{		
+		if ( !@fopen($value, 'r') ) return 'Пожалуйста, введите корректный URL.';
+		return FALSE;
+	}
+	
+	function ValidateEmail($value)
+	{		
+		if ( !preg_match('/^.+@.+\.\w{2,4}$/i', $value) ) return 'Пожалуйста, введите корректный адрес электронной почты.';
+		return FALSE;
+	}
+	
+	function ValidateDate($value)
+	{		
+		if ( !preg_match('/^\d{1,2}.\d{1,2}.\d{4}$/', $value) ) return 'Пожалуйста, введите корректную дату.';
+		return FALSE;
+	}
+}
